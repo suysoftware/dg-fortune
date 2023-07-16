@@ -94,7 +94,8 @@ class __cupertinoAppState extends State<_cupertinoApp> with WidgetsBindingObserv
     return CupertinoApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        "/": (BuildContext context) => isLogged == false ? const LoginScreen() : const HomeScreen(),
+        //  "/": (BuildContext context) => isLogged == false ? const LoginScreen() : const HomeScreen(),
+        "/": (BuildContext context) => const HomeScreen(),
         "/Home": (BuildContext context) => const HomeScreen(),
         "/Login": (BuildContext context) => const LoginScreen(),
       },
