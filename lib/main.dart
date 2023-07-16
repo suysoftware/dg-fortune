@@ -2,7 +2,7 @@
 
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:dg_fortune/src/bloc/fortune_user_cubit.dart';
-import 'package:dg_fortune/src/model/fortune_user.dart';
+import 'package:dg_fortune/src/model/FortuneUser/fortune_user.dart';
 import 'package:dg_fortune/src/screen/home/home_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,11 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:sizer/sizer.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'src/screen/login/login_screen.dart';
+import 'src/service/firebase/firebase_auth_services.dart';
 import 'src/service/firebase/firebase_options.dart';
 
-bool isLogged = false;
 var fortuneUser;
 Future<void> main() async {
   await init();
@@ -27,6 +27,12 @@ Future<void> init() async {
   await dotenv.load(fileName: ".env");
   await Firebase.initializeApp(options: FirebaseOptionsClass.firebaseConfig);
   await appTracking();
+
+  if (FirebaseAuth.instance.currentUser != null) {
+    fortuneUser = await FirebaseAuthServices().getFortuneUser();
+  } else {
+    fortuneUser = await FirebaseAuthServices().signUpAnon();
+  }
   /*
   await FirebaseAuthService.loggedCheck().then((value) => kmUser = value);
   await FirestoreOperations.kmSystemSettingsGetter().then((value) => systemSettings = value);*/
@@ -79,6 +85,9 @@ class __cupertinoAppState extends State<_cupertinoApp> with WidgetsBindingObserv
   void initState() {
     super.initState();
 
+    if (fortuneUser != null) {
+      context.read<FortuneUserCubit>().changeFortuneUser(fortuneUser);
+    }
     WidgetsBinding.instance.addObserver(this);
   }
 

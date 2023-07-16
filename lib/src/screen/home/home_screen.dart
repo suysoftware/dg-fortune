@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:dg_fortune/src/screen/home/components/falling_stars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,21 +32,23 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
         backgroundColor: Color(0xFF0A0118),
-        child: Stack(
-          children: [
-            FallingStars(),
-            buildStars(),
-            buildTopText(),
-            buildPurpleEarth(),
-            buildCenterText(),
-            buildBottomTextField(),
-          ],
+        child: SingleChildScrollView(
+          child: Stack(
+            children: [
+              FallingStars(),
+              buildStars(),
+              buildTopText(),
+              buildPurpleEarth(),
+              buildCenterText(),
+              buildBottomTextField(),
+            ],
+          ),
         ));
   }
 
-  Positioned buildTopText() {
+  Positioned buildPurpleEarth() {
     return Positioned(
-      top: 16.h,
+      top: MediaQuery.of(context).viewInsets.bottom == 0 ? 16.h : 45.h,
       left: 100.w / 2 - 150,
       child: SvgPicture.asset(
         "assets/svg/purple_earth.svg",
@@ -57,29 +58,32 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     );
   }
 
-  Positioned buildCenterText() {
-    return Positioned(
-        top: 53.h,
-        left: 100.w / 2 - 158,
-        child: SizedBox(
-          width: 316,
-          child: RichText(
-            textAlign: TextAlign.center,
-            text: const TextSpan(
-              style: TextStyle(color: CupertinoColors.white, fontSize: 16),
-              children: <TextSpan>[
-                TextSpan(
-                    text: '“Huzur içinde bir hayat yaşıyorum. Huzur ve mutluluğu kendime çekiyorum.”',
-                    style: TextStyle(fontWeight: FontWeight.bold, color: CupertinoColors.white, fontSize: 16)),
-              ],
+  Visibility buildCenterText() {
+    return Visibility(
+      visible: MediaQuery.of(context).viewInsets.bottom == 0,
+      child: Positioned(
+          top: 60.h,
+          left: 100.w / 2 - 158,
+          child: SizedBox(
+            width: 316,
+            child: RichText(
+              textAlign: TextAlign.center,
+              text: const TextSpan(
+                style: TextStyle(color: CupertinoColors.white, fontSize: 16),
+                children: <TextSpan>[
+                  TextSpan(
+                      text: '“Huzur içinde bir hayat yaşıyorum. Huzur ve mutluluğu kendime çekiyorum.”',
+                      style: TextStyle(fontWeight: FontWeight.bold, color: CupertinoColors.white, fontSize: 16)),
+                ],
+              ),
             ),
-          ),
-        ));
+          )),
+    );
   }
 
   Positioned buildBottomTextField() {
     return Positioned(
-        top: 70.h,
+        top: 90.h,
         left: 5.w,
         child: Container(
             height: 5.h,
@@ -111,7 +115,7 @@ buildFallingStars() {
   );
 }
 
-Positioned buildPurpleEarth() {
+Positioned buildTopText() {
   return Positioned(
     top: 13.h,
     left: 100.w / 2 - 110,
