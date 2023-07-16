@@ -1,25 +1,23 @@
 const functions = require("firebase-functions");
+const admin = require("firebase-admin");
 
-// // Create and deploy your first functions
-// // https://firebase.google.com/docs/functions/get-started
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+
+const express = require('express');
+const cors = require('cors')({ origin: true });
+const app = express();
+app.use(cors);
+admin.initializeApp(functions.config().firestore);
+const db = admin.firestore();
+
+
+const acountCreate = require('./auth/AccountCreate');
+
+
+
 exports.createNewUser = functions.auth.user().onCreate(async (user) => {
 
-
-    //await accountCreate(user.email, user.uid);
-
     console.log("New user created with email: ");
-
-
-
-
-
-
-
+       await acountCreate(user.email, user.uid);
 
 
 });

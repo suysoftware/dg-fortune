@@ -28,9 +28,13 @@ Future<void> init() async {
   await Firebase.initializeApp(options: FirebaseOptionsClass.firebaseConfig);
   await appTracking();
 
-  if (FirebaseAuth.instance.currentUser != null) {
-    fortuneUser = await FirebaseAuthServices().getFortuneUser();
+  if (FirebaseAuth.instance.currentUser?.uid != null) {
+    print("user var");
+    print(FirebaseAuth.instance.currentUser?.uid);
+       fortuneUser = await FirebaseAuthServices().signUpAnon();
+    //fortuneUser = await FirebaseAuthServices().getFortuneUser();
   } else {
+    print("user yok");
     fortuneUser = await FirebaseAuthServices().signUpAnon();
   }
   /*

@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:dg_fortune/src/screen/home/components/falling_stars.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -50,10 +51,15 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     return Positioned(
       top: MediaQuery.of(context).viewInsets.bottom == 0 ? 16.h : 45.h,
       left: 100.w / 2 - 150,
-      child: SvgPicture.asset(
-        "assets/svg/purple_earth.svg",
-        height: 300,
-        width: 300,
+      child: GestureDetector(
+        onTap: () async {
+          await FirebaseAuth.instance.signInAnonymously();
+        },
+        child: SvgPicture.asset(
+          "assets/svg/purple_earth.svg",
+          height: 300,
+          width: 300,
+        ),
       ),
     );
   }
@@ -64,17 +70,22 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       child: Positioned(
           top: 60.h,
           left: 100.w / 2 - 158,
-          child: SizedBox(
-            width: 316,
-            child: RichText(
-              textAlign: TextAlign.center,
-              text: const TextSpan(
-                style: TextStyle(color: CupertinoColors.white, fontSize: 16),
-                children: <TextSpan>[
-                  TextSpan(
-                      text: '“Huzur içinde bir hayat yaşıyorum. Huzur ve mutluluğu kendime çekiyorum.”',
-                      style: TextStyle(fontWeight: FontWeight.bold, color: CupertinoColors.white, fontSize: 16)),
-                ],
+          child: GestureDetector(
+            onTap: () async {
+              await FirebaseAuth.instance.signOut();
+            },
+            child: SizedBox(
+              width: 316,
+              child: RichText(
+                textAlign: TextAlign.center,
+                text: const TextSpan(
+                  style: TextStyle(color: CupertinoColors.white, fontSize: 16),
+                  children: <TextSpan>[
+                    TextSpan(
+                        text: '“Huzur içinde bir hayat yaşıyorum. Huzur ve mutluluğu kendime çekiyorum.”',
+                        style: TextStyle(fontWeight: FontWeight.bold, color: CupertinoColors.white, fontSize: 16)),
+                  ],
+                ),
               ),
             ),
           )),

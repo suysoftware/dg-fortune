@@ -19,10 +19,24 @@ class FirebaseAuthServices {
           .get();
 
       var fortuneUser = fortuneUserData.data();
-      return fortuneUser!;
+      return fortuneUser;
     } catch (e) {
       print(e);
-      return null;
+      print("cat");
+
+      var credential = await FirebaseAuth.instance.signInAnonymously();
+      var fortuneUser = FortuneUser.withInfo(
+          userNo: credential.user!.uid,
+          userName: "",
+          userManifests: [],
+          userEmail: "",
+          userType: UserType.anon,
+          userAiFortunes: [],
+          userNextAiFortuneDate: Timestamp.fromDate(DateTime.now()),
+          userMessageToken: "",
+          userSettings:
+              UserSettings(notificationSettings: NotificationSettings(surpriseNotification: true, fortuneReadyNotification: true, dailyNews: true), themeType: ThemeType.night));
+      return fortuneUser;
     }
   }
 
