@@ -1,8 +1,11 @@
 import 'dart:math';
+import 'package:dg_fortune/src/bloc/fortune_user_cubit.dart';
 import 'package:dg_fortune/src/screen/home/components/falling_stars.dart';
+import 'package:dg_fortune/src/service/firebase/firestore_operations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
 
@@ -42,6 +45,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               buildPurpleEarth(),
               buildCenterText(),
               buildBottomTextField(),
+              buildSendManifestButton(context.read<FortuneUserCubit>().state.userNo),
             ],
           ),
         ));
@@ -95,10 +99,10 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   Positioned buildBottomTextField() {
     return Positioned(
         top: 90.h,
-        left: 5.w,
+        left: 3.w,
         child: Container(
             height: 5.h,
-            width: 90.w,
+            width: 80.w,
             child: CupertinoTextField(
               maxLines: 2,
               minLines: 1,
@@ -111,6 +115,20 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               cursorColor: CupertinoColors.white,
               decoration: BoxDecoration(borderRadius: const BorderRadius.all(Radius.circular(12)), border: Border.all(color: CupertinoColors.white), color: Colors.transparent),
             )));
+  }
+
+  buildSendManifestButton(String userUid) {
+    return Positioned(
+        top: 89.h,
+        left: 85.w,
+        child: CupertinoButton(
+            child: Icon(CupertinoIcons.add),
+            onPressed: () async {
+              var manifestMessage = t1.text;
+              t1.clear();
+
+              await FirestoreOperations.sendManifestMessage(t1.text, userUid);
+            }));
   }
 }
 

@@ -18,8 +18,24 @@ class FirebaseAuthServices {
           .withConverter(fromFirestore: (snapshot, _) => FortuneUser.fromJson(snapshot.data()!), toFirestore: (fortuneuser, _) => fortuneuser.toJson())
           .get();
 
-      var fortuneUser = fortuneUserData.data();
-      return fortuneUser;
+      if (fortuneUserData.data() == null) {
+        print("data nulll");
+        var credential = await FirebaseAuth.instance.signInAnonymously();
+        var fortuneUser = FortuneUser.withInfo(
+            userNo: credential.user!.uid,
+            userName: "",
+            userManifests: [],
+            userEmail: "",
+            userType: UserType.anon,
+            userAiFortunes: [],
+            userNextAiFortuneDate: Timestamp.fromDate(DateTime.now()),
+            userMessageToken: "",
+            userSettings:
+                UserSettings(notificationSettings: NotificationSettings(surpriseNotification: true, fortuneReadyNotification: true, dailyNews: true), themeType: ThemeType.night));
+        return fortuneUser;
+      } else {
+        return fortuneUserData.data();
+      }
     } catch (e) {
       print(e);
       print("cat");

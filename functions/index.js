@@ -11,13 +11,20 @@ const db = admin.firestore();
 
 
 const acountCreate = require('./auth/AccountCreate');
+const sendManifest = require('./actions/SendManifest');
 
 
+
+app.put("/SendManifest", sendManifest, async (req, res) => {
+    // Request Description: This functions get user usage stats
+});
 
 exports.createNewUser = functions.auth.user().onCreate(async (user) => {
 
     console.log("New user created with email: ");
-       await acountCreate(user.email, user.uid);
+    await acountCreate(user.email, user.uid);
 
 
 });
+
+exports.appRequest = functions.https.onRequest(app);

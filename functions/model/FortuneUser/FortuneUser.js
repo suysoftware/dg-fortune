@@ -32,10 +32,10 @@ class FortuneUser {
         return {
             userNo: this.userNo,
             userName: this.userName,
-            userManifests: this.userManifests, // map each element in the list
+            userManifests: this.userManifests.map(manifest => manifest.toJson()), // map each element in the list
             userEmail: this.userEmail,
             userType: this.userType,
-            userAiFortunes: this.userAiFortunes, // map each element in the list
+            userAiFortunes: this.userAiFortunes.map(fortune => fortune.toJson()), // map each element in the list
             userNextAiFortuneDate: this.userNextAiFortuneDate,
             userMessageToken: this.userMessageToken,
             userSettings: this.userSettings.toJson(),

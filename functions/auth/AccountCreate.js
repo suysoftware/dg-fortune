@@ -7,6 +7,9 @@ const { FortuneUser } = require('../model/FortuneUser/FortuneUser');
 const { NotificationSettings } = require('../model/FortuneUser/components/NotificationSettings');
 const { UserSettings } = require('../model/FortuneUser/components/UserSettings');
 
+const { UserManifest } = require('../model/FortuneUser/components/UserManifest');
+const { UserAiFortune } = require('../model/FortuneUser/components/UserAiFortune');
+
 
 
 //Function Description: This function is used to create a new user in the database.
@@ -35,13 +38,25 @@ const accountCreate = async (reqUserEmail, reqUserNo) => {
             themeType: "night",
         });
 
+        const userManifest = new UserManifest({
+            manifestText: "Welcome to Fortune! You can send your first manifest by clicking the button below.",
+            manifestDate: userAccountCreatedDate,
+            manifestNo: "welcome"
+        });
+
+        const userAiFortune = new UserAiFortune({
+            fortuneText: "Welcome to Fortune! You can send your first manifest by clicking the button below.",
+            fortuneDate: userAccountCreatedDate,
+            fortuneNo: "welcome"
+        });
+
         const fortuneUser = new FortuneUser({
             userNo: userNo,
             userName: "",
-            userManifests: [],
+            userManifests: [userManifest],
             userEmail: "nomail",
             userType: "anon",
-            userAiFortunes: [],
+            userAiFortunes: [userAiFortune],
             userNextAiFortuneDate: userAccountCreatedDate,
             userMessageToken: "",
             userSettings: userSettings,
