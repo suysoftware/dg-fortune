@@ -57,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       left: 100.w / 2 - 150,
       child: GestureDetector(
         onTap: () async {
-          await FirebaseAuth.instance.signInAnonymously();
+         await FirestoreOperations.getAiFortune(context.read<FortuneUserCubit>().state.userNo);
         },
         child: SvgPicture.asset(
           "assets/svg/purple_earth.svg",
@@ -127,7 +127,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               var manifestMessage = t1.text;
               t1.clear();
 
-              await FirestoreOperations.sendManifestMessage(t1.text, userUid);
+              await FirestoreOperations.sendManifestMessage(manifestMessage, userUid);
             }));
   }
 }

@@ -8,8 +8,17 @@ static Future<void> sendManifestMessage(String manifestMessage,String userUid)as
       "manifest_message": manifestMessage,
       "user_no": userUid,
     };
-await RestApiServices.restApiRequest(RestApiConstants.API_LINK_SEND_MANIFEST_MESSAGE, quotaPayload,(){
-  return "success";});
+await RestApiServices.restApiRequest(RestApiConstants.API_LINK_SEND_MANIFEST_MESSAGE, quotaPayload,(dynamic data){
+  return data;});
+
+}
+
+static Future<void> getAiFortune(String userUid)async{
+  var quotaPayload = {
+      "user_no": userUid,
+    };
+await RestApiServices.restApiRequest(RestApiConstants.API_LINK_GET_AI_FORTUNE, quotaPayload,(dynamic data){
+  return data;});
 
 }
 

@@ -3,6 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class RestApiConstants {
   static String API_LINK_SEND_MANIFEST_MESSAGE = dotenv.env['SEND_MANIFEST_MESSAGE'].toString();
+  static String API_LINK_GET_AI_FORTUNE = dotenv.env['GET_AI_FORTUNE'].toString();
 
   /*
   static String API_LINK_AUTH_SIGNIN = dotenv.env['TB_AUTH_SIGNIN_API_URL'].toString();

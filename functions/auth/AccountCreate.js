@@ -39,13 +39,13 @@ const accountCreate = async (reqUserEmail, reqUserNo) => {
         });
 
         const userManifest = new UserManifest({
-            manifestText: "Welcome to Fortune! You can send your first manifest by clicking the button below.",
+            manifestText: " ",
             manifestDate: userAccountCreatedDate,
             manifestNo: "welcome"
         });
 
         const userAiFortune = new UserAiFortune({
-            fortuneText: "Welcome to Fortune! You can send your first manifest by clicking the button below.",
+            fortuneText: " ",
             fortuneDate: userAccountCreatedDate,
             fortuneNo: "welcome"
         });

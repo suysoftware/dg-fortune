@@ -12,10 +12,14 @@ const db = admin.firestore();
 
 const acountCreate = require('./auth/AccountCreate');
 const sendManifest = require('./actions/SendManifest');
+const getAiFortune = require('./actions/GetAiFortune');
 
 
 
 app.put("/SendManifest", sendManifest, async (req, res) => {
+    // Request Description: This functions get user usage stats
+});
+app.put("/GetAiFortune", getAiFortune, async (req, res) => {
     // Request Description: This functions get user usage stats
 });
 
