@@ -8,9 +8,9 @@ class RestApiServices {
 
     print(response.statusCode);
     if (response.statusCode == 200) {
-      var responseBody = response.body;
-      var restApiReponse = await jsonFunction(responseBody);
-      return restApiReponse;
+      //var responseBody = response.reasonPhrase;
+      //var restApiReponse = await jsonFunction(responseBody);
+      //return restApiReponse;
     } else {
       return "error";
     }

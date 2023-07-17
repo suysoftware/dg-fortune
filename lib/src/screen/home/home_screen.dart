@@ -21,6 +21,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   late AnimationController _controller;
   List<Star> stars = [];
 
+  var fortuneMessage = "";
+
   @override
   void initState() {
     super.initState();
@@ -57,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       left: 100.w / 2 - 150,
       child: GestureDetector(
         onTap: () async {
-         await FirestoreOperations.getAiFortune(context.read<FortuneUserCubit>().state.userNo);
+          await FirestoreOperations.getAiFortune(context.read<FortuneUserCubit>().state.userNo);
         },
         child: SvgPicture.asset(
           "assets/svg/purple_earth.svg",
@@ -82,12 +84,10 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               width: 316,
               child: RichText(
                 textAlign: TextAlign.center,
-                text: const TextSpan(
-                  style: TextStyle(color: CupertinoColors.white, fontSize: 16),
+                text: TextSpan(
+                  style: const TextStyle(color: CupertinoColors.white, fontSize: 16),
                   children: <TextSpan>[
-                    TextSpan(
-                        text: '“Huzur içinde bir hayat yaşıyorum. Huzur ve mutluluğu kendime çekiyorum.”',
-                        style: TextStyle(fontWeight: FontWeight.bold, color: CupertinoColors.white, fontSize: 16)),
+                    TextSpan(text: fortuneMessage, style: const TextStyle(fontWeight: FontWeight.bold, color: CupertinoColors.white, fontSize: 16)),
                   ],
                 ),
               ),

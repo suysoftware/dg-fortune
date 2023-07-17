@@ -93,7 +93,7 @@ const getAiFortune = async (req, res, next) => {
 
             t.update(userRef, { userAiFortunes: userAiFortunes });
         });
-        res.status(200).send("Fortune sent successfully");
+        res.status(200).send("asf");
     }
     catch (error) {
         console.log('Transaction failure:', error);
